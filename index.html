@@ -1,1 +1,139 @@
-
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YUE TRACKER</title>
+<style>
+:root{--bg:#080b12;--panel:#111722;--border:#222c3b;--text:#eef3ff;--muted:#8793a8;--green:#26e6a1;--red:#ff647c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
+header{padding:20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.logo{font-size:21px;font-weight:800}.logo span{color:var(--green)}
+.badge{border:1px solid #1c5948;background:#10251f;color:var(--green);padding:7px 10px;border-radius:20px;font-size:11px}
+main{max-width:1000px;margin:auto;padding:18px 14px}
+h1{font-size:27px;margin-bottom:8px}p{color:var(--muted);line-height:1.5}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px;margin:16px 0}
+.label{color:var(--muted);font-size:12px;margin-bottom:10px}
+input{width:100%;padding:14px;border-radius:9px;border:1px solid var(--border);background:#080d16;color:white;font-size:14px;outline:none}
+input:focus{border-color:var(--green)}
+button{border:none;padding:12px 15px;border-radius:9px;background:var(--green);color:#06140f;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.55;cursor:wait}
+.search-row{display:flex;gap:8px}.search-row input{min-width:0}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{padding:14px;background:#0b111b;border:1px solid var(--border);border-radius:10px}
+.stat strong{display:block;font-size:19px;margin-top:8px}.green{color:var(--green)}.muted{color:var(--muted)}
+table{width:100%;border-collapse:collapse}th,td{padding:13px 8px;border-bottom:1px solid var(--border);text-align:left;font-size:12px}
+th{color:var(--muted);font-weight:normal}td{overflow-wrap:anywhere}.token-name{font-weight:bold}.small{font-size:11px;color:var(--muted);margin-top:5px}
+.table-wrap{overflow-x:auto}.result{overflow-wrap:anywhere;font-size:13px;line-height:1.7}
+footer{text-align:center;padding:25px 10px;color:var(--muted);font-size:12px}
+.notice{border-left:3px solid var(--green);padding:10px 12px;background:#102019;color:#b7dccc;font-size:12px;line-height:1.6}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.secondary{background:#273244;color:var(--text)}a{color:var(--green)}
+@media(min-width:650px){.stats{grid-template-columns:repeat(4,1fr)}h1{font-size:34px}}
+</style>
+</head>
+<body>
+<header><div class="logo">YUE <span>TRACKER</span></div><div class="badge">SOLANA TOOLS</div></header>
+<main>
+<h1>Crypto Dashboard</h1><p>Pantau token Solana dalam satu tempat.</p>
+<section class="stats">
+<div class="stat"><div class="label">Jaringan</div><strong class="green">Solana</strong></div>
+<div class="stat"><div class="label">Data Pasar</div><strong id="marketStatus">Siap</strong></div>
+<div class="stat"><div class="label">Watchlist</div><strong id="watchCount">0 token</strong></div>
+<div class="stat"><div class="label">Biaya Aplikasi</div><strong>Rp0</strong></div>
+</section>
+<section class="panel">
+<h3>🔎 Cari Token Solana</h3><p class="small">Masukkan mint address token Solana. Harga diambil dari DexScreener.</p>
+<div class="search-row"><input id="tokenInput" placeholder="Alamat mint token Solana"><button id="searchBtn" onclick="searchToken()">Cari</button></div>
+<div id="searchResult" class="result" aria-live="polite"></div>
+</section>
+<section class="panel">
+<h3>⭐ Watchlist Saya</h3><p class="small">Watchlist disimpan di browser HP ini. Tekan Muat ulang harga untuk memperbarui data.</p>
+<div class="actions"><button onclick="refreshWatchlist()">Muat ulang harga</button></div>
+<div class="table-wrap"><table><thead><tr><th>Token</th><th>Harga USD</th><th>24 jam</th><th>Aksi</th></tr></thead><tbody id="watchlist"><tr><td colspan="4" class="muted">Belum ada token favorit.</td></tr></tbody></table></div>
+</section>
+<section class="panel">
+<h3>👛 Wallet Tracker</h3><p class="small">Masukkan alamat wallet publik Solana untuk melihat saldo SOL. Jangan pernah masukkan seed phrase atau private key.</p>
+<input id="walletInput" placeholder="Alamat wallet publik Solana"><br><br>
+<button id="walletBtn" onclick="checkWallet()">Periksa Saldo SOL</button><div id="walletResult" class="result" aria-live="polite"></div>
+</section>
+<div class="notice">Versi gratis menggunakan API publik DexScreener untuk harga token dan RPC publik Solana untuk saldo SOL. Layanan publik dapat mengalami batas permintaan atau gangguan. Data harga hanya informasi, bukan saran investasi.</div>
+</main><footer>YUE TRACKER • Solana Edition • V2</footer>
+<script>
+const input=document.getElementById("tokenInput");
+const result=document.getElementById("searchResult");
+const watchlistEl=document.getElementById("watchlist");
+const marketStatus=document.getElementById("marketStatus");
+const SOLANA_RPC="https://api.mainnet-beta.solana.com";
+function getWatchlist(){try{return JSON.parse(localStorage.getItem("yueWatchlist")||"[]")}catch{return []}}
+function saveWatchlist(items){localStorage.setItem("yueWatchlist",JSON.stringify(items))}
+function shortAddress(address){return address.length<16?address:address.slice(0,6)+"..."+address.slice(-5)}
+function escapeHTML(value){return String(value).replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]))}
+function money(value){if(value===null||value===undefined||!Number.isFinite(Number(value)))return "—";return "$"+Number(value).toLocaleString("en-US",{maximumSignificantDigits:8})}
+function pct(value){if(value===null||value===undefined||!Number.isFinite(Number(value)))return "—";const n=Number(value);return (n>0?"+":"")+n.toFixed(2)+"%"}
+async function getTokenData(address){
+ const response=await fetch("https://api.dexscreener.com/latest/dex/tokens/"+encodeURIComponent(address));
+ if(!response.ok)throw new Error("Layanan harga sedang tidak merespons (HTTP "+response.status+").");
+ const data=await response.json();
+ const pairs=(data.pairs||[]).filter(p=>p.chainId==="solana");
+ if(!pairs.length)throw new Error("Token/pair Solana belum ditemukan di DexScreener. Pastikan mint address benar dan token memiliki pool pasar.");
+ pairs.sort((a,b)=>(Number(b.liquidity?.usd)||0)-(Number(a.liquidity?.usd)||0));
+ return pairs[0];
+}
+async function searchToken(){
+ const address=input.value.trim();
+ if(!address){result.textContent="Masukkan alamat token terlebih dahulu.";return}
+ const btn=document.getElementById("searchBtn");btn.disabled=true;result.textContent="Mengambil data token...";
+ try{
+  const pair=await getTokenData(address);
+  const base=pair.baseToken||{};
+  const price=pair.priceUsd?money(pair.priceUsd):"Belum tersedia";
+  const change=pair.priceChange?.h24;
+  marketStatus.textContent="Aktif";
+  result.innerHTML=`<p><strong>${escapeHTML(base.name||"Token")} (${escapeHTML(base.symbol||"—")})</strong></p>
+  <p>Harga: <strong>${escapeHTML(price)}</strong><br>Perubahan 24 jam: <strong>${escapeHTML(pct(change))}</strong><br>Likuiditas: ${escapeHTML(money(pair.liquidity?.usd))}<br>DEX: ${escapeHTML(pair.dexId||"—")}</p>
+  <p><a href="${escapeHTML(pair.url||"https://dexscreener.com/solana/"+address)}" target="_blank" rel="noopener">Lihat pasangan di DexScreener</a></p>
+  <button id="addToken">☆ Simpan ke Watchlist</button>`;
+  document.getElementById("addToken").onclick=()=>addToken(address,base.name||base.symbol||shortAddress(address));
+ }catch(error){marketStatus.textContent="Cek koneksi";result.textContent=error.message||"Gagal mengambil data token."}
+ finally{btn.disabled=false}
+}
+function addToken(address,name){
+ const items=getWatchlist();
+ if(items.some(item=>item.address===address)){result.textContent="Token ini sudah ada di watchlist.";return}
+ items.push({address,name});saveWatchlist(items);renderWatchlist();result.textContent="Token berhasil disimpan ke watchlist."
+}
+function removeToken(index){const items=getWatchlist();items.splice(index,1);saveWatchlist(items);renderWatchlist()}
+function renderWatchlist(){
+ const items=getWatchlist();document.getElementById("watchCount").textContent=items.length+" token";
+ if(!items.length){watchlistEl.innerHTML='<tr><td colspan="4" class="muted">Belum ada token favorit.</td></tr>';return}
+ watchlistEl.innerHTML=items.map((item,index)=>`<tr><td><div class="token-name">${escapeHTML(item.name||"Token")}</div><div class="small">${escapeHTML(shortAddress(item.address))}</div></td><td>${escapeHTML(item.price?money(item.price):"Tekan Muat ulang")}</td><td>${escapeHTML(item.change24h!==undefined?pct(item.change24h):"—")}</td><td><button class="secondary" onclick="removeToken(${index})">Hapus</button></td></tr>`).join("")
+}
+async function refreshWatchlist(){
+ const items=getWatchlist();if(!items.length){renderWatchlist();return}
+ marketStatus.textContent="Memuat...";
+ for(const item of items){
+  try{const pair=await getTokenData(item.address);item.price=Number(pair.priceUsd);item.change24h=pair.priceChange?.h24;item.name=(pair.baseToken?.name||pair.baseToken?.symbol||item.name)}
+  catch(e){item.error=e.message}
+ }
+ saveWatchlist(items);renderWatchlist();marketStatus.textContent="Aktif"
+}
+async function checkWallet(){
+ const address=document.getElementById("walletInput").value.trim();
+ const output=document.getElementById("walletResult");const btn=document.getElementById("walletBtn");
+ if(!address){output.textContent="Masukkan alamat wallet terlebih dahulu.";return}
+ if(!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(address)){output.textContent="Format alamat tampaknya tidak sesuai. Periksa kembali alamat publiknya.";return}
+ btn.disabled=true;output.textContent="Memeriksa saldo SOL...";
+ try{
+  const response=await fetch(SOLANA_RPC,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method:"getBalance",params:[address,{commitment:"confirmed"}]})});
+  if(!response.ok)throw new Error("RPC Solana tidak merespons (HTTP "+response.status+").");
+  const data=await response.json();if(data.error)throw new Error(data.error.message||"RPC menolak permintaan.");
+  const sol=(Number(data.result?.value)||0)/1e9;
+  output.innerHTML=`Saldo SOL: <strong>${sol.toLocaleString("en-US",{maximumFractionDigits:9})} SOL</strong><br><span class="small">Saldo SOL saja; token SPL dan riwayat transaksi belum ditampilkan.</span>`;
+ }catch(error){output.textContent="Gagal mengambil saldo. RPC publik mungkin sedang sibuk atau koneksi dibatasi. "+(error.message||"Coba lagi nanti.")}
+ finally{btn.disabled=false}
+}
+renderWatchlist();
+</script>
+</body>
+</hawait
