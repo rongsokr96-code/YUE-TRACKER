@@ -1,1 +1,317 @@
 
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080b10">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="YUE ATLAS">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>YUE ATLAS — On-chain Context Engine</title>
+<style>
+:root{--bg:#080b10;--panel:#0e131b;--panel2:#111923;--line:#26313d;--text:#edf2f7;--muted:#8593a3;--mint:#8de8c5;--blue:#9dbdff;--amber:#f2c889;--rose:#f3a0ae;--violet:#c2b2ff;--r:17px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% -10%,#162331 0,transparent 40%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;letter-spacing:-.15px}button,input{font:inherit}button{cursor:pointer}.app{max-width:1440px;margin:auto;padding:0 25px 35px}.top{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{display:flex;align-items:center;gap:11px;font-weight:850;letter-spacing:-.7px}.sigil{width:32px;height:32px;border:1px solid #496c67;background:#13231f;border-radius:10px;display:grid;place-items:center;color:var(--mint);font-weight:900}.brand small{display:block;color:var(--muted);font-size:9px;letter-spacing:2px;font-weight:650;margin-top:-2px}.topmeta{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:11px}.live-dot{display:inline-block;width:7px;height:7px;background:var(--mint);border-radius:50%;margin-right:7px;box-shadow:0 0 0 4px #8de8c51a}.pill{border:1px solid var(--line);padding:5px 9px;border-radius:7px;font-size:9px;letter-spacing:1px;color:var(--muted);white-space:nowrap}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;padding:35px 0 25px}.eyebrow{font-size:10px;letter-spacing:2.3px;color:var(--mint);font-weight:800;text-transform:uppercase}.hero h1{font-size:clamp(34px,5vw,56px);letter-spacing:-2.8px;line-height:.99;margin:12px 0;font-weight:790}.hero p{max-width:590px;color:var(--muted);font-size:14px;margin:0}.session{text-align:right;color:var(--muted);font-size:10px;min-width:160px}.session strong{display:block;font-size:13px;color:var(--text);margin:4px 0}.querybar{display:flex;gap:9px;margin-bottom:16px}.querybar input{width:100%;min-width:0;background:#0b1016;border:1px solid #344250;border-radius:12px;padding:14px 15px;color:var(--text);outline:none}.querybar input:focus{border-color:#76c9ac}.btn{border:1px solid #9de8cb;background:var(--mint);color:#092019;border-radius:11px;padding:12px 17px;font-weight:850;white-space:nowrap}.btn.secondary{background:#121a24;border-color:var(--line);color:var(--text)}.statusline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:0 0 20px;color:var(--muted);font-size:10px}.statusline strong{color:var(--amber);font-weight:700}.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,.85fr);gap:15px;align-items:start}.panel{border:1px solid var(--line);background:linear-gradient(160deg,#101620,#0c1118);border-radius:var(--r);padding:18px;margin-bottom:15px;min-width:0}.panelhead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:14px}.panelhead h2{margin:0;font-size:13px;letter-spacing:.1px;font-weight:800}.panelhead p{margin:4px 0 0;color:var(--muted);font-size:10px}.index{color:#637588;font:10px ui-monospace,monospace;letter-spacing:1px}.hero-token{display:flex;align-items:flex-start;justify-content:space-between;gap:15px;padding:15px;border:1px solid #293747;border-radius:13px;background:linear-gradient(115deg,#13221f,#111923 65%);margin-bottom:12px}.token-title{font-size:18px;font-weight:820;letter-spacing:-.5px}.token-sub{font-size:10px;color:var(--muted);overflow-wrap:anywhere}.token-price{font-size:24px;font-weight:820;letter-spacing:-1px;text-align:right}.token-price small{display:block;font-size:11px;letter-spacing:0;color:var(--mint);font-weight:700}.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:12px 0 17px}.fact{border:1px solid var(--line);background:#0b1016;border-radius:10px;padding:11px;min-width:0}.fact span{display:block;color:var(--muted);font-size:9px;letter-spacing:.6px}.fact strong{display:block;font-size:13px;margin-top:5px;overflow-wrap:anywhere}.storyline{position:relative;padding:4px 0 0 4px}.event{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;position:relative;padding:0 0 19px}.event:not(:last-child):before{content:"";position:absolute;left:8px;top:17px;bottom:-2px;width:1px;background:#2b3947}.node{width:17px;height:17px;border-radius:6px;border:1px solid #526d7b;background:#12232b;display:grid;place-items:center;font-size:9px;color:var(--mint);z-index:1}.event h3{margin:0;font-size:12px;font-weight:800}.event p{margin:4px 0 0;color:var(--muted);font-size:11px}.event time{font-size:9px;color:#748293;white-space:nowrap}.evidence{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.evidence span{border:1px solid #2c3947;color:#9fb0c1;border-radius:5px;padding:3px 6px;font-size:9px}.graphbox{border:1px solid var(--line);background:#0a0f15;border-radius:13px;overflow:hidden;position:relative}.graphbox svg{width:100%;height:260px;display:block}.legend{display:flex;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:9px;padding:0 13px 13px}.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px}.insight{padding:12px;border:1px solid #34443f;border-radius:11px;background:#0d1817;margin-top:12px}.insight .label{color:var(--mint);font-size:9px;letter-spacing:1.4px;font-weight:800}.insight strong{display:block;font-size:12px;margin:5px 0}.insight p{color:var(--muted);font-size:11px;margin:0}.confidence{display:grid;grid-template-columns:85px 1fr;gap:13px;align-items:center}.ring{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--mint) 0 68%,#28323d 68% 100%);position:relative}.ring:before{content:"";position:absolute;inset:6px;border-radius:50%;background:#101620}.ring strong{z-index:1;font-size:20px}.confidence h3{margin:0 0 4px;font-size:12px}.confidence p{margin:0;color:var(--muted);font-size:10px}.confidence .small{margin-top:7px;color:var(--amber);font-size:9px}.trace-list{display:grid;gap:8px}.trace{display:grid;grid-template-columns:25px 1fr auto;align-items:center;gap:9px;padding:10px;border:1px solid var(--line);border-radius:10px;background:#0b1016}.traceicon{width:24px;height:24px;display:grid;place-items:center;border-radius:7px;background:#182530;color:var(--blue);font-size:11px}.trace strong{font-size:11px;display:block}.trace small{font-size:9px;color:var(--muted)}.trace b{font-size:10px;color:var(--mint)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:9px}.metric{padding:12px;background:#0b1016;border:1px solid var(--line);border-radius:11px}.metric span{font-size:9px;color:var(--muted)}.metric strong{display:block;font-size:19px;letter-spacing:-.5px;margin-top:5px}.metric small{font-size:9px;color:var(--muted)}.modebar{display:flex;gap:7px;flex-wrap:wrap}.modebar button{border:1px solid var(--line);background:#0b1016;color:var(--muted);padding:7px 9px;border-radius:7px;font-size:10px}.modebar button.active{border-color:#507d70;color:var(--mint);background:#12231e}.replay{display:flex;gap:10px;align-items:center;margin-top:12px}.replay input{width:100%;accent-color:var(--mint)}.replay span{font:10px ui-monospace,monospace;color:var(--muted);white-space:nowrap}.foot{color:var(--muted);font-size:9px;line-height:1.6;margin:12px 0 0}.footer{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:9px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#1b2930;border:1px solid #40535d;border-radius:10px;padding:11px 14px;display:none;z-index:5;max-width:90%;font-size:12px}
+@media(max-width:900px){.app{padding:0 15px 28px}.grid{grid-template-columns:1fr}.sidegrid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}.sidegrid .panel{height:fit-content}.hero{padding-top:27px}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.app{padding:0 11px 22px}.top{height:62px}.topmeta .mutedtag{display:none}.hero{display:block}.hero h1{letter-spacing:-1.7px}.session{text-align:left;margin-top:15px}.panel{padding:13px;margin-bottom:11px}.sidegrid{display:block}.querybar{gap:6px}.btn{padding:11px 12px}.token-price{font-size:20px}.graphbox svg{height:220px}.event{grid-template-columns:22px minmax(0,1fr)}.event time{grid-column:2}.confidence{grid-template-columns:74px 1fr}.ring{width:68px;height:68px}.statusline{align-items:flex-start;flex-direction:column}.hero-token{padding:12px}.panelhead{margin-bottom:11px}}
+
+.alert-form{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(110px,.7fr) minmax(100px,.6fr) minmax(120px,.8fr);gap:9px;align-items:end}
+.alert-field{min-width:0}.alert-field label{display:block;color:var(--muted);font-size:10px;margin:0 0 6px}.alert-field input,.alert-field select{width:100%;min-width:0;background:#0a1016;border:1px solid #344250;border-radius:9px;color:var(--text);padding:11px 10px;min-height:43px}
+.alert-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.alert-status{font-size:10px;color:var(--muted);margin-top:10px}.alert-list{display:grid;gap:8px;margin-top:13px}.alert-item{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;border:1px solid var(--line);background:#0a1016;border-radius:10px;padding:11px}.alert-item strong{display:block;font-size:12px;overflow-wrap:anywhere}.alert-item small{display:block;color:var(--muted);font-size:10px;margin-top:3px;overflow-wrap:anywhere}.alert-item .alert-state{font-size:10px;color:var(--mint);margin-top:5px}.alert-item .alert-state.fired{color:var(--amber)}.alert-item .alert-buttons{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.alert-item button{border:1px solid var(--line);background:#151e29;color:var(--text);border-radius:7px;padding:7px 9px;font-size:10px}.alert-empty{border:1px dashed #344250;border-radius:10px;padding:15px;color:var(--muted);font-size:11px}
+@media(max-width:760px){.alert-form{grid-template-columns:1fr 1fr}.alert-form .wide{grid-column:1/-1}}
+@media(max-width:420px){.alert-form{grid-template-columns:1fr}.alert-form .wide{grid-column:auto}.alert-item{grid-template-columns:1fr}.alert-item .alert-buttons{justify-content:flex-start}}
+
+</style>
+</head>
+<body><div class="app">
+<header class="top"><div class="brand"><div class="sigil">Y/</div><div>YUE ATLAS<small>ON-CHAIN CONTEXT ENGINE</small></div></div><div class="topmeta"><span><i class="live-dot"></i>READ-ONLY RPC</span><span class="pill mutedtag">RESEARCH MODE</span></div></header>
+<section class="hero"><div><div class="eyebrow">Beyond charts. Beyond alerts.</div><h1>Every token has a story.<br>Find the missing context.</h1><p>YUE ATLAS bukan terminal untuk mengejar candle. Ini konsep mesin konteks: menyatukan jejak token, perubahan likuiditas, hubungan wallet, dan bukti di balik sebuah sinyal menjadi satu cerita yang bisa diperiksa.</p></div><div class="session">ATLAS SESSION<strong id="time">—</strong><span>DEMO DATA · NO EXECUTION</span></div></section>
+<div class="querybar"><input id="mint" placeholder="Tempel alamat mint Solana untuk memeriksa data on-chain" spellcheck="false"><button class="btn" id="load">Check on-chain ↗</button></div>
+<div class="statusline"><span><i class="live-dot"></i>Market feed menunggu token · fitur lokal aktif</span><span><strong>STATUS:</strong> data pasar akan tampil setelah token diperiksa; relasi wallet tetap perlu indexer khusus.</span></div>
+
+<section class="panel" id="alertsPanel">
+ <div class="panelhead"><div><h2>ALERTS / Price alarm</h2><p>Atur peringatan saat harga token naik atau turun dari harga saat kamu membuat alarm.</p></div><span class="index">LOCAL / ALERTS</span></div>
+ <form id="alertForm">
+  <div class="alert-form">
+   <div class="alert-field wide"><label for="alertMint">Token mint address (Solana)</label><input id="alertMint" maxlength="64" autocomplete="off" spellcheck="false" placeholder="Tempel alamat mint token" required></div>
+   <div class="alert-field"><label for="alertDirection">Kondisi</label><select id="alertDirection"><option value="up">Naik minimal</option><option value="down">Turun minimal</option></select></div>
+   <div class="alert-field"><label for="alertPercent">Perubahan (%)</label><input id="alertPercent" type="number" min="0.1" max="100000" step="0.1" value="10" required></div>
+   <div class="alert-field"><label for="alertInterval">Cek harga</label><select id="alertInterval"><option value="30">Setiap 30 detik</option><option value="60" selected>Setiap 1 menit</option><option value="120">Setiap 2 menit</option></select></div>
+  </div>
+  <div class="alert-field wide" style="margin-top:10px">
+    <label for="alarmSound">Suara alarm</label>
+    <select id="alarmSound">
+      <option value="beep">Beep</option>
+      <option value="double">Dua kali beep</option>
+      <option value="alarm">Alarm berulang</option>
+    </select>
+  </div>
+  <div class="alert-field wide" style="margin-top:10px">
+    <label for="alarmVolume">Volume suara: <span id="alarmVolumeLabel">70%</span></label>
+    <input id="alarmVolume" type="range" min="0" max="100" value="70" style="width:100%;accent-color:var(--mint)">
+  </div>
+  <div class="alert-actions"><button class="btn" id="createAlert" type="submit">+ Buat alarm harga</button><button class="btn secondary" id="enableNotifications" type="button">Aktifkan notifikasi</button><button class="btn secondary" id="testAlarmSound" type="button">Tes suara</button></div>
+ </form>
+ <div class="alert-status" id="alertStatus" aria-live="polite">Alarm tersimpan di browser ini. Pemeriksaan berjalan saat halaman YUE ATLAS terbuka.</div>
+ <div class="alert-list" id="alertList"><div class="alert-empty">Belum ada alarm. Masukkan mint address dan tentukan ambang perubahan harga.</div></div>
+ <p class="foot">Sumber harga: DexScreener (pair Solana dengan likuiditas USD terbesar). Alarm membandingkan harga saat dibuat dengan harga berikutnya, bukan memprediksi harga. Notifikasi tidak berjalan jika halaman/browser ditutup atau sistem menghentikan tab di latar belakang. Ini bukan saran investasi.</p>
+</section>
+
+<div class="grid"><main>
+<section class="panel"><div class="panelhead"><div><h2>01 / Token story</h2><p>Satu ringkasan yang menghubungkan apa yang terjadi, bukan sekadar berapa harganya.</p></div><span class="index">ATLAS / 001</span></div>
+<div class="hero-token"><div><div class="token-title" id="tokname">YUE ATLAS / belum ada token</div><div class="token-sub" id="tokaddr">Belum ada alamat mint yang diperiksa</div></div><div class="token-price" id="price">—<small>Harga tidak ditampilkan</small></div></div>
+<div class="facts"><div class="fact"><span>LIQUIDITY</span><strong id="factLiquidity">Menunggu data</strong></div><div class="fact"><span>VOLUME 24H</span><strong id="factVolume">Menunggu data</strong></div><div class="fact"><span>TOP HOLDER CLUSTER</span><strong id="factHolders">Tidak tersedia</strong></div><div class="fact"><span>STORY STATUS</span><strong id="factStory" style="color:var(--amber)">Menunggu token</strong></div></div>
+<div class="panelhead" style="margin-top:19px"><div><h2>Event timeline</h2><p>Urutan kejadian yang dapat diuji terhadap data.</p></div><span class="pill">EXPLAINABLE</span></div>
+<div class="storyline" id="timeline">
+<div class="event"><div class="node">1</div><div><h3>Volume mulai menyimpang dari baseline</h3><p>Aktivitas meningkat relatif terhadap sampel sebelumnya. Ini menunjukkan perhatian bertambah, belum membuktikan akumulasi.</p><div class="evidence"><span>Volume / baseline</span><span>Needs historical feed</span></div></div><time>DEMO · T−24m</time></div>
+<div class="event"><div class="node">2</div><div><h3>Likuiditas belum mengonfirmasi kekuatan gerak</h3><p>Perubahan harga tanpa konteks kedalaman pool bisa terlihat lebih meyakinkan daripada kenyataannya.</p><div class="evidence"><span>Pool depth</span><span>Evidence incomplete</span></div></div><time>DEMO · T−18m</time></div>
+<div class="event"><div class="node">3</div><div><h3>Kesimpulan ditahan</h3><p>Belum cukup bukti untuk menyebut pergerakan ini sebagai tren yang bertahan.</p><div class="evidence"><span>Confidence limited</span><span>No prediction</span></div></div><time>NOW</time></div>
+</div><div class="insight"><div class="label">YUE INTERPRETATION</div><strong>Data belum dimuat.</strong><p>Masukkan alamat mint dan tekan Check on-chain untuk memuat market snapshot. Aktivitas tinggi tidak otomatis berarti token sehat.</p></div>
+</section>
+<section class="panel" id="livepanel"><div class="panelhead"><div><h2>LIVE / On-chain check</h2><p>Data baca-saja langsung dari Solana RPC. Ini bukan data harga atau rekomendasi.</p></div><span class="index">RPC / MAINNET</span></div><div class="twocol"><div class="metric"><span>ACCOUNT STATUS</span><strong id="liveStatus">Belum diperiksa</strong><small id="liveStatusNote">Masukkan alamat mint lalu tekan tombol.</small></div><div class="metric"><span>TOKEN SUPPLY</span><strong id="liveSupply">—</strong><small id="liveDecimals">Decimals: —</small></div><div class="metric"><span>RPC SLOT</span><strong id="liveSlot">—</strong><small>Slot saat pemeriksaan</small></div><div class="metric"><span>DATA SOURCE</span><strong>Solana RPC</strong><small>Read-only · no wallet connection</small></div></div><p class="foot" id="liveFoot">Data market live dan data mint on-chain dimuat terpisah. Jika satu sumber gagal, panel terkait akan menampilkan status error.</p></section>
+<section class="panel"><div class="panelhead"><div><h2>02 / Wallet constellation</h2><p>Ilustrasi konsep saja. Relasi wallet live memerlukan layanan pengindeks transaksi yang belum terhubung.</p></div><span class="index">GRAPH / 002</span></div>
+<div class="insight"><div class="label">WALLET DATA STATUS</div><strong>Relasi wallet belum tersedia</strong><p>Website belum terhubung ke pengindeks transaksi yang dapat membuktikan hubungan antardompet. Tidak ada wallet atau relasi yang akan ditampilkan sebagai data nyata tanpa sumber tersebut.</p></div><p class="foot">Mint dan supply dapat diperiksa melalui Solana RPC. Untuk membangun graf wallet yang terverifikasi diperlukan layanan indeks transaksi tambahan; endpoint publik saat ini tidak cukup untuk klaim tersebut.</p></section>
+<section class="panel"><div class="panelhead"><div><h2>03 / Historical replay</h2><p>Putar ulang sinyal untuk menguji apakah indikator muncul sebelum atau sesudah perubahan.</p></div><span class="pill">RESEARCH TOOL</span></div><div class="modebar"><button class="active" data-mode="price">Price move</button><button data-mode="liquidity">Liquidity shift</button><button data-mode="wallet">Wallet activity</button></div><div class="replay"><input id="replay" type="range" min="0" max="100" value="68"><span id="replaytime">T−08m</span></div><div class="insight" style="background:#101722;border-color:#29384a"><div class="label" style="color:var(--blue)">REPLAY OBSERVATION</div><strong id="replaytitle">Data sampel: volume bergerak lebih dulu.</strong><p id="replaytext">Ini demonstrasi cara kerja replay. Versi produksi memerlukan penyimpanan snapshot historis agar dapat menguji urutan kejadian, bukan sekadar mengingat harga saat ini.</p></div></section>
+</main>
+<aside class="sidegrid">
+<section class="panel"><div class="panelhead"><div><h2>04 / Evidence confidence</h2><p>Kelengkapan sumber yang berhasil dimuat, bukan peluang profit.</p></div><span class="index">WHY / 004</span></div><div class="confidence"><div class="ring"><strong>0</strong></div><div><h3>Belum ada snapshot</h3><p>Nilai dihitung setelah data market berhasil dimuat.</p><div class="small">Wallet dan social feed belum terhubung</div></div></div><div class="trace-list" style="margin-top:16px"><div class="trace"><div class="traceicon">✓</div><div><strong>Market snapshot</strong><small>Price / volume / liquidity</small></div><b>DEMO</b></div><div class="trace"><div class="traceicon">?</div><div><strong>Wallet linkage</strong><small>Needs indexed transactions</small></div><b style="color:var(--amber)">GAP</b></div><div class="trace"><div class="traceicon">?</div><div><strong>Social context</strong><small>Needs permitted source</small></div><b style="color:var(--amber)">GAP</b></div><div class="trace"><div class="traceicon">?</div><div><strong>Historical baseline</strong><small>Needs stored snapshots</small></div><b style="color:var(--amber)">GAP</b></div></div><p class="foot">Confidence mengukur kelengkapan dan kualitas sumber, bukan “peluang profit”. Tiap insight idealnya bisa dibuka ke data yang mendukungnya.</p></section>
+<section class="panel"><div class="panelhead"><div><h2>05 / What changed?</h2><p>Delta sejak snapshot terakhir, bukan sinyal beli.</p></div><span class="index">DELTA / 005</span></div><div class="twocol"><div class="metric"><span>VOLUME VS BASELINE</span><strong style="color:var(--mint)">+42%</strong><small>demo sample</small></div><div class="metric"><span>LIQUIDITY</span><strong id="deltaLiquidity" style="color:var(--amber)">—</strong><small id="deltaLiquidityNote">Perlu snapshot sebelumnya</small></div><div class="metric"><span>NEW LINKS</span><strong id="newLinks">—</strong><small>Data wallet terindeks tidak tersedia dari feed ini</small></div><div class="metric"><span>DATA GAPS</span><strong id="dataGaps">4</strong><small id="dataGapsNote">Sumber yang belum tersedia</small></div></div><p class="foot">Versi nyata harus menghitung delta dari snapshot yang tersimpan dan menunjukkan waktu pengukuran. Nilai di layar ini sengaja statis sebagai contoh UI.</p></section>
+<section class="panel"><div class="panelhead"><div><h2>06 / Research notes</h2><p>Catatan hipotesis yang melekat ke token.</p></div><span class="index">MEMORY / 006</span></div><textarea id="notes" placeholder="Tulis hipotesis, bukti yang mendukung, dan apa yang akan membatalkannya…" style="width:100%;min-height:125px;background:#0a1016;border:1px solid var(--line);border-radius:10px;color:var(--text);padding:12px;resize:vertical;outline:none"></textarea><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px"><span id="saved" style="color:var(--muted);font-size:9px">Disimpan lokal di perangkat</span><button class="btn secondary" id="saveNotes">Save note</button></div></section>
+</aside></div>
+<footer class="footer"><span>YUE ATLAS · READ-ONLY ON-CHAIN CHECK</span><span>EDUCATIONAL RESEARCH INTERFACE · NO TRADING · DEMO DATA CLEARLY LABELLED</span></footer></div><div id="toast" class="toast"></div>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let toastTimer=null;
+function toast(message){const el=$("toast");el.textContent=message;el.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(()=>{el.style.display="none"},3200)}
+function clock(){const d=new Date();$("time").textContent=d.toLocaleDateString("id-ID",{day:"2-digit",month:"short"})+" · "+d.toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit",second:"2-digit"})}
+clock();setInterval(clock,1000);
+function safeRead(key,fallback){try{const v=localStorage.getItem(key);return v===null?fallback:JSON.parse(v)}catch{return fallback}}
+function safeWrite(key,value){try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){toast("Penyimpanan browser penuh atau tidak tersedia.");return false}}
+try{$("notes").value=localStorage.getItem("yueAtlasNotes")||""}catch(e){/* local storage may be blocked */}
+$("saveNotes").addEventListener("click",()=>{try{localStorage.setItem("yueAtlasNotes",$("notes").value);$("saved").textContent="Saved · "+new Date().toLocaleTimeString("id-ID",{hour:"2-digit",minute:"2-digit"});toast("Research note tersimpan di browser.")}catch(e){toast("Browser tidak mengizinkan penyimpanan lokal.")}});
+const RPC_ENDPOINTS=["https://solana-rpc.publicnode.com","https://api.mainnet-beta.solana.com"];
+async function fetchJson(url,options={},timeoutMs=12000){const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),timeoutMs);try{const response=await fetch(url,{...options,signal:controller.signal,cache:"no-store"});if(!response.ok)throw new Error("HTTP "+response.status);return await response.json()}catch(e){if(e.name==="AbortError")throw new Error("Permintaan timeout. Coba lagi.");throw e}finally{clearTimeout(timer)}}
+async function rpc(method,params){let lastError=null;for(const endpoint of RPC_ENDPOINTS){try{const j=await fetchJson(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({jsonrpc:"2.0",id:1,method,params})});if(j.error)throw new Error(j.error.message||"RPC error");if(!Object.prototype.hasOwnProperty.call(j,"result"))throw new Error("Respons RPC tidak valid.");return j.result}catch(e){lastError=e}}throw new Error(lastError?.message||"Semua endpoint RPC gagal.")}
+function validMint(value){return /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(value)}
+$("load").addEventListener("click",async()=>{const mint=$("mint").value.trim();if(!mint){toast("Masukkan alamat mint Solana terlebih dahulu.");return}if(!validMint(mint)){toast("Format alamat mint Solana tidak valid.");return}const btn=$("load");btn.disabled=true;btn.textContent="Memeriksa…";$("liveStatus").textContent="Memeriksa";$("liveStatusNote").textContent="Mencoba endpoint RPC Solana…";$("liveSupply").textContent="—";$("liveDecimals").textContent="Decimals: —";$("liveSlot").textContent="—";try{const [account,supply]=await Promise.all([rpc("getAccountInfo",[mint,{encoding:"base64",commitment:"confirmed"}]),rpc("getTokenSupply",[mint,{commitment:"confirmed"}])]);if(!account?.value||!supply?.value)throw new Error("Alamat tidak ditemukan sebagai mint token yang valid.");const val=supply.value;const amount=Number(val.uiAmountString);if(!Number.isFinite(amount))throw new Error("Supply token tidak dapat dibaca.");$("liveStatus").textContent="Mint ditemukan";$("liveStatusNote").textContent="Account tersedia di jaringan Solana.";$("liveSupply").textContent=amount.toLocaleString("id-ID",{maximumFractionDigits:8});$("liveDecimals").textContent="Decimals: "+val.decimals;$("liveSlot").textContent=String(supply.context?.slot??account.context?.slot??"—");$("tokname").textContent="On-chain study / "+mint.slice(0,5).toUpperCase();$("tokaddr").textContent=mint.slice(0,10)+"…"+mint.slice(-8)+" · checked on-chain";$("liveFoot").textContent="Supply berhasil dibaca dari Solana RPC. Harga, likuiditas, volume, pemegang terbesar, dan timeline di bagian lain tetap data demo kecuali disebutkan sebagai data live.";toast("Pemeriksaan on-chain berhasil.")}catch(e){$("liveStatus").textContent="Tidak terverifikasi";$("liveStatusNote").textContent=(e.message||"Permintaan gagal").slice(0,110);$("liveFoot").textContent="RPC gagal atau dibatasi. Periksa alamat/koneksi lalu coba lagi; bagian lain tetap demo.";toast("Gagal memeriksa: "+(e.message||"koneksi bermasalah").slice(0,100))}finally{btn.disabled=false;btn.textContent="Check on-chain ↗"}});
+let replayMode="price";
+document.querySelectorAll("[data-mode]").forEach(button=>button.addEventListener("click",()=>{document.querySelectorAll("[data-mode]").forEach(item=>item.classList.remove("active"));button.classList.add("active");replayMode=button.dataset.mode;const mint=$("mint").value.trim();const list=atlasHistory()[mint]||[];atlasRenderReplay(list,Number($("replay").value));}));
+$("replay").addEventListener("input",event=>{$("replaytime").textContent="T−"+String(Math.round((100-Number(event.target.value))*0.3)).padStart(2,"0")+"m"});
+
+
+// Live market context: DexScreener is the source for price/volume/liquidity.
+// Historical comparisons use local snapshots only; wallet ownership/social feeds are not fabricated.
+const ATLAS_HISTORY_KEY="yueAtlasMarketHistoryV1";
+const atlasMoney=n=>{n=Number(n)||0;if(n>=1e9)return "$"+(n/1e9).toFixed(2)+"B";if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";return "$"+n.toFixed(2)};
+function atlasSetText(id,value){const el=$(id);if(el)el.textContent=value}
+function atlasHistory(){const v=safeRead(ATLAS_HISTORY_KEY,{});return v&&typeof v==="object"&&!Array.isArray(v)?v:{}}
+function atlasRenderTimeline(market,previous){
+ const host=$("timeline");if(!host)return;host.replaceChildren();
+ const rows=[
+  ["M","Market snapshot diperbarui",`Harga ${fmtPrice(market.price)} · likuiditas ${atlasMoney(market.liquidity)} · volume 24 jam ${atlasMoney(market.volume24)}.`, "DexScreener live", new Date().toLocaleTimeString("id-ID")],
+  ["P","Perubahan harga 24 jam",`Perubahan harga tercatat ${Number(market.change24||0)>=0?"+":""}${Number(market.change24||0).toFixed(2)}%. Ini perubahan historis, bukan prediksi.`, "Price change 24h", "24H"],
+  ["L","Aktivitas transaksi",`Beli ${market.buys24} · jual ${market.sells24} selama 24 jam berdasarkan pair terpilih.`, "Pair transactions", "24H"]
+ ];
+ if(previous) rows.push(["Δ","Dibanding snapshot lokal sebelumnya",`Harga ${fmtPct((market.price-previous.price)/previous.price*100)} · likuiditas ${fmtPct((market.liquidity-previous.liquidity)/(previous.liquidity||1)*100)} sejak snapshot sebelumnya.`, "Local snapshot", "PREV"]);
+ rows.forEach((r,i)=>{const ev=document.createElement("div");ev.className="event";const node=document.createElement("div");node.className="node";node.textContent=r[0];const body=document.createElement("div");const h=document.createElement("h3");h.textContent=r[1];const p=document.createElement("p");p.textContent=r[2];const evidence=document.createElement("div");evidence.className="evidence";for(const label of [r[3], "Source-backed"]){const span=document.createElement("span");span.textContent=label;evidence.append(span)}body.append(h,p,evidence);const time=document.createElement("time");time.textContent=r[4];ev.append(node,body,time);host.append(ev)});
+}
+function atlasUpdateMarket(market){
+ const mint=$("mint").value.trim();const history=atlasHistory();const oldList=Array.isArray(history[mint])?history[mint]:[];const previous=oldList.length>0?oldList[oldList.length-1]:null;
+ atlasSetText("tokname",(market.symbol||"TOKEN")+" / "+(market.name||"Token"));
+ atlasSetText("tokaddr",mint+" · pair "+(market.pairAddress||"tidak tersedia"));
+ atlasSetText("price",fmtPrice(market.price));
+ const priceEl=$("price");if(priceEl){let small=priceEl.querySelector("small");if(!small){small=document.createElement("small");priceEl.append(small)}small.textContent=(market.change24>=0?"+":"")+Number(market.change24||0).toFixed(2)+"% / 24 jam"}
+ atlasSetText("factLiquidity",atlasMoney(market.liquidity));
+ atlasSetText("factVolume",atlasMoney(market.volume24));
+ atlasSetText("factHolders","Tidak tersedia");
+ atlasSetText("factStory","Market feed aktif");
+ atlasSetText("liveFoot","Market snapshot dari DexScreener berhasil dimuat. Wallet holders/relations dan social context tidak disediakan oleh endpoint ini sehingga tidak ditampilkan sebagai data nyata.");
+ atlasSetText("deltaVolume",previous&&previous.volume24>0?fmtPct((market.volume24-previous.volume24)/previous.volume24*100):"—");
+ atlasSetText("deltaVolumeNote",previous?"Perubahan sejak snapshot lokal":"Belum ada snapshot sebelumnya");
+ atlasSetText("deltaLiquidity",previous&&previous.liquidity>0?fmtPct((market.liquidity-previous.liquidity)/previous.liquidity*100):"—");
+ atlasSetText("deltaLiquidityNote",previous?"Perubahan sejak snapshot lokal":"Belum ada snapshot sebelumnya");
+ atlasSetText("newLinks","N/A");
+ atlasSetText("dataGaps","2");
+ atlasSetText("dataGapsNote","Wallet graph dan social feed belum tersedia");
+ const score=previous?80:60;const ring=document.querySelector(".ring");if(ring)ring.style.background=`conic-gradient(var(--mint) 0 ${score}%,#28323d ${score}% 100%)`;
+ const ringStrong=document.querySelector(".ring strong");if(ringStrong)ringStrong.textContent=String(score);
+ const conf=document.querySelector(".confidence h3");if(conf)conf.textContent=previous?"Market history tersedia":"Market snapshot tersedia";
+ const confP=document.querySelector(".confidence p");if(confP)confP.textContent="Kelengkapan data yang tersedia, bukan probabilitas harga naik/turun.";
+ const confSmall=document.querySelector(".confidence .small");if(confSmall)confSmall.textContent=previous?"2 evidence gaps remain":"History lokal belum cukup";
+ atlasRenderTimeline(market,previous);
+ // Persist one snapshot per mint at least 30 seconds apart, retaining up to 100.
+ if(!oldList.length||Date.now()-Number(oldList[oldList.length-1].ts)>30000){
+   oldList.push({ts:Date.now(),price:market.price,liquidity:market.liquidity,volume24:market.volume24,change24:market.change24});
+   history[mint]=oldList.slice(-100);safeWrite(ATLAS_HISTORY_KEY,history);
+ }
+ const historyNow=history[mint]||oldList;
+ const replay=$("replay");if(replay){replay.max=Math.max(0,historyNow.length-1);replay.value=replay.max;atlasRenderReplay(historyNow,historyNow.length-1)}
+}
+function atlasRenderReplay(list,index){
+ if(!list||!list.length){atlasSetText("replaytitle","Belum ada snapshot historis.");atlasSetText("replaytext","Periksa token kembali dari waktu ke waktu. Snapshot disimpan lokal di browser ini; tidak ada histori sebelum website mulai menyimpannya.");atlasSetText("replaytime","Belum ada");return}
+ const snap=list[Math.max(0,Math.min(list.length-1,Number(index)||0))];
+ atlasSetText("replaytitle","Snapshot "+new Date(snap.ts).toLocaleString("id-ID"));
+ atlasSetText("replaytext","Harga "+fmtPrice(snap.price)+" · likuiditas "+atlasMoney(snap.liquidity)+" · volume 24 jam "+atlasMoney(snap.volume24)+". Data historis lokal, bukan histori lengkap dari blockchain.");
+ atlasSetText("replaytime",String(Math.max(0,list.length-1-(Number(index)||0)))+" snapshot lalu");
+}
+$("replay").addEventListener("input",()=>{const mint=$("mint").value.trim();const list=atlasHistory()[mint]||[];atlasRenderReplay(list,Number($("replay").value))});
+$("load").addEventListener("click",async()=>{
+ const mint=$("mint").value.trim();if(!validMint(mint))return;
+ const btn=$("load");const old=btn.textContent;btn.disabled=true;btn.textContent="Memuat market…";
+ try{
+  const data=await fetchJson("https://api.dexscreener.com/latest/dex/tokens/"+encodeURIComponent(mint),{},15000);
+  const pairs=Array.isArray(data?.pairs)?data.pairs.filter(p=>p.chainId==="solana"&&Number(p.priceUsd)>0):[];
+  if(!pairs.length)throw new Error("DexScreener belum menemukan pair Solana dengan harga. Token mungkin belum punya market.");
+  pairs.sort((a,b)=>(Number(b.liquidity?.usd)||0)-(Number(a.liquidity?.usd)||0));
+  const p=pairs[0];const m={price:Number(p.priceUsd),symbol:String(p.baseToken?.symbol||"TOKEN"),name:String(p.baseToken?.name||"Token"),liquidity:Number(p.liquidity?.usd)||0,volume24:Number(p.volume?.h24)||0,change24:Number(p.priceChange?.h24)||0,buys24:Number(p.txns?.h24?.buys)||0,sells24:Number(p.txns?.h24?.sells)||0,fdv:Number(p.fdv)||0,pairAddress:p.pairAddress||"",pairCreatedAt:Number(p.pairCreatedAt)||0};
+  if(!Number.isFinite(m.price)||m.price<=0)throw new Error("Harga pair tidak valid.");
+  atlasUpdateMarket(m);toast("Market snapshot berhasil dimuat.");
+ }catch(e){atlasSetText("factStory","Market gagal dimuat");atlasSetText("tokaddr",mint+" · gagal dimuat: "+(e.message||"sumber tidak tersedia"));toast("Market feed: "+(e.message||"gagal memuat data").slice(0,130));}
+ finally{btn.disabled=false;btn.textContent=old}
+});
+
+// Price alerts: browser-local, one-shot thresholds based on price at creation.
+const ALERT_KEY="yueAtlasPriceAlertsV2";
+let alerts=safeRead(ALERT_KEY,[]);if(!Array.isArray(alerts))alerts=[];
+alerts=alerts.filter(a=>a&&typeof a.id==="string"&&typeof a.mint==="string"&&Number.isFinite(Number(a.basePrice))&&Number(a.basePrice)>0&&["up","down"].includes(a.direction)&&Number.isFinite(Number(a.percent))&&Number(a.percent)>0).slice(0,10);
+let pollBusy=false;
+function fmtPrice(value){const n=Number(value);if(!Number.isFinite(n)||n<=0)return "harga tidak tersedia";return "$"+n.toLocaleString("en-US",{maximumSignificantDigits:8})}
+function fmtPct(value){const n=Number(value);return (n>0?"+":"")+n.toFixed(2)+"%"}
+async function getLiveTokenPrice(mint){const data=await fetchJson("https://api.dexscreener.com/latest/dex/tokens/"+encodeURIComponent(mint),{},12000);const pairs=Array.isArray(data?.pairs)?data.pairs.filter(pair=>pair.chainId==="solana"&&Number.isFinite(Number(pair.priceUsd))&&Number(pair.priceUsd)>0):[];if(!pairs.length)throw new Error("Pair/harga Solana belum tersedia di DexScreener.");pairs.sort((a,b)=>(Number(b.liquidity?.usd)||0)-(Number(a.liquidity?.usd)||0));const pair=pairs[0];return {price:Number(pair.priceUsd),symbol:String(pair.baseToken?.symbol||"TOKEN").slice(0,30),name:String(pair.baseToken?.name||"Token").slice(0,50),liquidity:Number(pair.liquidity?.usd)||0,pairAddress:String(pair.pairAddress||"")}}
+function persistAlerts(){safeWrite(ALERT_KEY,alerts)}
+function renderAlerts(){const host=$("alertList");if(!alerts.length){host.innerHTML='<div class="alert-empty">Belum ada alarm. Masukkan mint address dan tentukan ambang perubahan harga.</div>';return}host.replaceChildren();for(const alert of alerts){const card=document.createElement("div");card.className="alert-item";const info=document.createElement("div");const title=document.createElement("strong");title.textContent=(alert.symbol||"TOKEN")+" · "+(alert.direction==="up"?"Naik ≥ ":"Turun ≥ ")+Number(alert.percent)+"%";const detail=document.createElement("small");detail.textContent=alert.mint.slice(0,8)+"…"+alert.mint.slice(-6)+" · dasar "+fmtPrice(alert.basePrice)+" · target "+fmtPrice(alert.targetPrice)+" · cek "+alert.interval+" dtk";const state=document.createElement("div");state.className="alert-state"+(alert.fired?" fired":"");state.textContent=alert.fired?"TERPICU · "+(alert.firedAt?new Date(alert.firedAt).toLocaleString("id-ID"):"sudah terpenuhi"):alert.active?"AKTIF · "+(alert.lastPrice?"harga terakhir "+fmtPrice(alert.lastPrice):"menunggu pemeriksaan pertama"):(alert.lastError?"ERROR · "+alert.lastError:"DIJEDA");info.append(title,detail,state);const actions=document.createElement("div");actions.className="alert-buttons";const toggle=document.createElement("button");toggle.type="button";toggle.textContent=alert.active?"Jeda":"Aktifkan";toggle.disabled=!!alert.fired;toggle.addEventListener("click",()=>{alert.active=!alert.active;alert.lastError="";persistAlerts();renderAlerts();});const remove=document.createElement("button");remove.type="button";remove.textContent="Hapus";remove.addEventListener("click",()=>{alerts=alerts.filter(item=>item.id!==alert.id);persistAlerts();renderAlerts();setAlertStatus("Alarm dihapus.")});actions.append(toggle,remove);card.append(info,actions);host.append(card)}}
+function setAlertStatus(message){$("alertStatus").textContent=message}
+async function sendAlertNotification(title,body){
+ toast(title+" — "+body);
+ if(!('Notification' in window)||Notification.permission!=="granted")return;
+ try{
+  if(!('serviceWorker' in navigator))throw new Error("Browser tidak mendukung Service Worker.");
+  const registration=await navigator.serviceWorker.ready;
+  if(!registration.showNotification)throw new Error("Browser tidak mendukung notifikasi sistem.");
+  await registration.showNotification(title,{body,tag:"yue-atlas-price-alert",renotify:true,icon:"/favicon.ico",data:{url:location.href}});
+ }catch(e){setAlertStatus("Alarm terpicu, tetapi notifikasi HP gagal: "+(e.message||"izin/browser membatasi notifikasi").slice(0,120)+". Periksa izin notifikasi situs dan Android.")}
+}
+$("enableNotifications").addEventListener("click",async()=>{
+ const button=$("enableNotifications");button.disabled=true;button.textContent="Mengaktifkan…";
+ try{
+  if(!window.isSecureContext)throw new Error("Buka website melalui HTTPS.");
+  if(!('Notification' in window))throw new Error("Browser ini tidak mendukung Notifications. Coba Chrome terbaru.");
+  if(!('serviceWorker' in navigator))throw new Error("Browser ini tidak mendukung Service Worker. Coba Chrome terbaru.");
+  let permission=Notification.permission;
+  if(permission!=="granted")permission=await Notification.requestPermission();
+  if(permission!=="granted")throw new Error(permission==="denied"?"Izin diblokir. Buka setelan situs di Chrome > Notifikasi > Izinkan.":"Izin notifikasi belum diberikan.");
+  await navigator.serviceWorker.register("/sw.js",{scope:"/"});
+  const registration=await navigator.serviceWorker.ready;
+  if(!registration.showNotification)throw new Error("Fitur notifikasi sistem tidak tersedia di browser ini.");
+  await registration.showNotification("YUE ATLAS siap",{body:"Tes berhasil. Alarm harga dapat menampilkan notifikasi saat halaman memeriksa harga.",tag:"yue-atlas-test",data:{url:location.href}});
+  setAlertStatus("Berhasil! Notifikasi tes dikirim ke HP. Alarm harga tetap perlu halaman terbuka; notifikasi saat website ditutup membutuhkan backend push.");
+ }catch(e){setAlertStatus("Notifikasi belum aktif: "+(e.message||"kesalahan tidak diketahui")+" Jika baru mengunggah sw.js, pastikan file itu berada di folder root repositori lalu deploy ulang.");}
+ finally{button.disabled=false;button.textContent="Aktifkan notifikasi"}
+});
+$("alertForm").addEventListener("submit",async event=>{event.preventDefault();const mint=$("alertMint").value.trim();const direction=$("alertDirection").value;const percent=Number($("alertPercent").value);const interval=Number($("alertInterval").value);if(!validMint(mint)){setAlertStatus("Alamat mint tidak valid. Gunakan alamat token Solana yang benar.");return}if(!Number.isFinite(percent)||percent<0.1||percent>100000){setAlertStatus("Persentase harus di antara 0,1 dan 100.000.");return}if(![30,60,120].includes(interval)){setAlertStatus("Interval pemeriksaan tidak valid.");return}if(alerts.length>=10){setAlertStatus("Maksimal 10 alarm agar permintaan API tetap wajar. Hapus alarm lama dahulu.");return}const button=$("createAlert");button.disabled=true;button.textContent="Mengambil harga…";setAlertStatus("Mengambil harga pasar untuk menetapkan harga dasar…");try{const market=await getLiveTokenPrice(mint);const targetPrice=market.price*(direction==="up"?1+percent/100:1-percent/100);if(!Number.isFinite(targetPrice)||targetPrice<=0)throw new Error("Target harga tidak valid; kurangi persentase penurunan.");const alert={id:Date.now().toString(36)+Math.random().toString(36).slice(2,7),mint,direction,percent,interval,basePrice:market.price,targetPrice,symbol:market.symbol,name:market.name,active:true,fired:false,createdAt:Date.now(),lastCheckedAt:0,lastPrice:market.price,lastError:""};alerts.unshift(alert);alerts=alerts.slice(0,10);persistAlerts();renderAlerts();$("alertMint").value=mint;setAlertStatus("Alarm aktif untuk "+market.symbol+". Harga dasar "+fmtPrice(market.price)+"; target "+fmtPrice(targetPrice)+".");toast("Alarm harga dibuat.")}catch(e){setAlertStatus("Alarm belum dibuat: "+(e.message||"gagal mengambil harga"));}finally{button.disabled=false;button.textContent="+ Buat alarm harga"}});
+
+// Alarm audio: Android/Chrome usually requires one user gesture before playback.
+let alarmAudioContext = null;
+function playAlarmSound() {
+  try {
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) {
+      setAlertStatus("Browser ini tidak mendukung suara alarm. Coba Chrome terbaru.");
+      return false;
+    }
+    if (!alarmAudioContext) alarmAudioContext = new AudioContextClass();
+    if (alarmAudioContext.state === "suspended") alarmAudioContext.resume();
+
+    const volumeInput = $("alarmVolume");
+    const volume = Math.max(0, Math.min(100, Number(volumeInput ? volumeInput.value : 70))) / 100;
+    if (volume <= 0) {
+      setAlertStatus("Volume suara 0%. Naikkan volume alarm untuk mendengar bunyi.");
+      return false;
+    }
+    const sound = $("alarmSound") ? $("alarmSound").value : "beep";
+    const beep = (frequency, start, duration) => {
+      const oscillator = alarmAudioContext.createOscillator();
+      const gain = alarmAudioContext.createGain();
+      const startAt = alarmAudioContext.currentTime + start;
+      gain.gain.setValueAtTime(0.0001, startAt);
+      gain.gain.exponentialRampToValueAtTime(Math.max(0.001, volume * 0.18), startAt + 0.02);
+      gain.gain.setValueAtTime(Math.max(0.001, volume * 0.18), startAt + Math.max(0.03, duration - 0.04));
+      gain.gain.exponentialRampToValueAtTime(0.0001, startAt + duration);
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(frequency, startAt);
+      oscillator.connect(gain);
+      gain.connect(alarmAudioContext.destination);
+      oscillator.start(startAt);
+      oscillator.stop(startAt + duration + 0.02);
+    };
+    if (sound === "double") {
+      beep(880, 0, 0.20); beep(880, 0.34, 0.20);
+    } else if (sound === "alarm") {
+      beep(880, 0, 0.24); beep(660, 0.32, 0.24); beep(880, 0.64, 0.24); beep(660, 0.96, 0.24);
+    } else {
+      beep(880, 0, 0.30);
+    }
+    return true;
+  } catch (error) {
+    console.warn("Suara alarm tidak tersedia:", error);
+    setAlertStatus("Suara gagal diputar. Tekan Tes suara sekali lagi dan pastikan volume HP aktif.");
+    return false;
+  }
+}
+if ($("testAlarmSound")) $("testAlarmSound").addEventListener("click", () => {
+  const ok = playAlarmSound();
+  if (ok) toast("Tes suara alarm diputar.");
+});
+if ($("alarmVolume")) $("alarmVolume").addEventListener("input", () => {
+  if ($("alarmVolumeLabel")) $("alarmVolumeLabel").textContent = $("alarmVolume").value + "%";
+});
+
+async function checkPriceAlerts(){if(pollBusy||document.visibilityState==="hidden")return;const now=Date.now();const due=alerts.filter(a=>a.active&&!a.fired&&now-(Number(a.lastCheckedAt)||0)>=Number(a.interval)*1000);if(!due.length)return;pollBusy=true;try{await Promise.all(due.map(async alert=>{alert.lastCheckedAt=Date.now();try{const market=await getLiveTokenPrice(alert.mint);alert.lastPrice=market.price;alert.symbol=market.symbol||alert.symbol;alert.lastError="";const change=((market.price-alert.basePrice)/alert.basePrice)*100;const triggered=alert.direction==="up"?market.price>=alert.targetPrice:market.price<=alert.targetPrice;if(triggered){playAlarmSound();alert.active=false;alert.fired=true;alert.firedAt=Date.now();sendAlertNotification("YUE ATLAS: "+alert.symbol+" "+(alert.direction==="up"?"naik":"turun")+" "+fmtPct(change),"Harga "+fmtPrice(market.price)+"; harga dasar "+fmtPrice(alert.basePrice)+"; ambang "+alert.percent+"%. ")}}catch(e){alert.lastError=(e.message||"gagal mengambil harga").slice(0,80)}}));persistAlerts();renderAlerts();const active=alerts.filter(a=>a.active&&!a.fired).length;if(active)setAlertStatus("Pemeriksaan terakhir "+new Date().toLocaleTimeString("id-ID")+" · "+active+" alarm aktif. Tab harus tetap terbuka.")}finally{pollBusy=false}}
+renderAlerts();if(alerts.some(a=>a.active&&!a.fired))setAlertStatus("Alarm tersimpan dan aktif. Pemeriksaan dimulai saat halaman terbuka; data harga bisa terlambat.");setInterval(checkPriceAlerts,15000);document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")checkPriceAlerts()});
+</script>
+<script>
+/* YUE ATLAS PWA: automatic service-worker registration and install prompt */
+(() => {
+  if ("serviceWorker" in navigator && location.protocol === "https:") {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js", { scope: "/" })
+        .catch(err => console.warn("YUE ATLAS service worker:", err));
+    });
+  }
+  let deferredInstallPrompt = null;
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredInstallPrompt = event;
+    let button = document.getElementById("pwaInstallButton");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "pwaInstallButton";
+      button.className = "btn secondary";
+      button.type = "button";
+      button.textContent = "Install App";
+      button.style.cssText = "position:fixed;right:12px;bottom:12px;z-index:20;box-shadow:0 6px 22px #0008";
+      document.body.appendChild(button);
+      button.addEventListener("click", async () => {
+        if (!deferredInstallPrompt) return;
+        deferredInstallPrompt.prompt();
+        await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+        button.remove();
+      });
+    }
+  });
+  window.addEventListener("appinstalled", () => {
+    const button = document.getElementById("pwaInstallButton");
+    if (button) button.remove();
+    if (typeof toast === "function") toast("YUE ATLAS berhasil dipasang sebagai aplikasi.");
+  });
+})();
+</script>
+
+</body></html>
+
+
+
